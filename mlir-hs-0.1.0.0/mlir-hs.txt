@@ -1069,6 +1069,12 @@ pattern ToExtentTensor :: () => () => Location -> Type -> operand -> AbstractOpe
 -- | A builder for <tt>shape.to_extent_tensor</tt>.
 to_extent_tensor :: () => MonadBlockBuilder m => Type -> Value -> m Value
 
+-- | A pattern for <tt>shape.value_as_shape</tt>.
+pattern ValueAsShape :: () => () => Location -> Type -> operand -> AbstractOperation operand
+
+-- | A builder for <tt>shape.value_as_shape</tt>.
+value_as_shape :: () => MonadBlockBuilder m => Type -> Value -> m Value
+
 -- | A pattern for <tt>shape.with_shape</tt>.
 pattern With :: () => () => Location -> Type -> operand -> operand -> AbstractOperation operand
 
@@ -2033,17 +2039,17 @@ xori :: () => MonadBlockBuilder m => Value -> Value -> m Value
 
 module MLIR.Native.Pass
 createPassManager :: Context -> IO PassManager
-inline_c_ffi_6989586621679457900 :: Context -> IO PassManager
+inline_c_ffi_6989586621679458812 :: Context -> IO PassManager
 destroyPassManager :: PassManager -> IO ()
-inline_c_ffi_6989586621679457909 :: PassManager -> IO ()
+inline_c_ffi_6989586621679458821 :: PassManager -> IO ()
 withPassManager :: Context -> (PassManager -> IO a) -> IO a
 runPasses :: PassManager -> Module -> IO LogicalResult
-inline_c_ffi_6989586621679457922 :: PassManager -> Module -> IO LogicalResult
+inline_c_ffi_6989586621679458834 :: PassManager -> Module -> IO LogicalResult
 addConvertMemRefToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679457931 :: PassManager -> IO ()
+inline_c_ffi_6989586621679458843 :: PassManager -> IO ()
 addConvertStandardToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679457940 :: PassManager -> IO ()
+inline_c_ffi_6989586621679458852 :: PassManager -> IO ()
 addConvertVectorToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679457949 :: PassManager -> IO ()
+inline_c_ffi_6989586621679458861 :: PassManager -> IO ()
 addConvertReconcileUnrealizedCastsPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679457958 :: PassManager -> IO ()
+inline_c_ffi_6989586621679458870 :: PassManager -> IO ()
