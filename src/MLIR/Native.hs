@@ -200,7 +200,7 @@ verifyOperation op =
 --------------------------------------------------------------------------------
 -- Region
 
--- | Returns the first Region in a Operation.
+-- | Returns the first Region in an Operation.
 getOperationFirstRegion :: Operation -> IO (Maybe Region)
 getOperationFirstRegion op = nullable <$> [C.exp| MlirRegion {
     mlirOperationGetFirstRegion($(MlirOperation op))

@@ -106,19 +106,24 @@ spec = do
     it "Can extract first operation (Function) of module" $ \ctx -> do
       exampleModule <- liftM fromJust $
         MLIR.withStringRef exampleModuleStr $ MLIR.parseModule ctx
-      operations <- (MLIR.getModuleBody >=> MLIR.getBlockOperations) exampleModule
-      functionStr' <- MLIR.showOperation $ head operations
+      -- Extract first operation which we know to be a function
+      function <- head <$> (MLIR.getModuleBody >=> MLIR.getBlockOperations) exampleModule
+      functionStr' <- MLIR.showOperation function
       functionStr' `shouldStartWith` "func @add(%arg0: i32) -> i32"
       MLIR.destroyModule exampleModule
 
     it "Can show operations inside region of function" $ \ctx -> do
       exampleModule <- liftM fromJust $
         MLIR.withStringRef exampleModuleStr $ MLIR.parseModule ctx
-      operations <- (MLIR.getModuleBody >=> MLIR.getBlockOperations) exampleModule
-      regions <- MLIR.getOperationRegions (head operations)
-      blocks <- MLIR.getRegionBlocks (head regions)
-      ops <- MLIR.getBlockOperations $ head blocks
-      opStrs <- sequence $ map MLIR.showOperation ops
+      -- Get all operations in first function of module.
+      ops <-
+        -- Get operations in module body, then
+        (MLIR.getModuleBody >=> MLIR.getBlockOperations) >=>
+        -- get blocks in first region of first operation (@add fn), then
+        (MLIR.getOperationRegions . head) >=> (MLIR.getRegionBlocks . head) >=>
+        -- get operations in first block.
+        (MLIR.getBlockOperations . head) $ exampleModule
+      opStrs <- mapM MLIR.showOperation ops
       (BS.intercalate " ; " opStrs) `shouldBe` "%0 = arith.addi %arg0, %arg0 : i32 ; return %0 : i32"
       MLIR.destroyModule exampleModule
 
