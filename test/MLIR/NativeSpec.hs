@@ -49,6 +49,11 @@ prepareContext = do
   MLIR.registerAllDialects ctx
   return ctx
 
+-- It feels like there should be a helper function that does this ...
+getFirst :: ([a] -> IO a)
+getFirst x = do
+  return (head x)
+
 -- Helper matcher as shouldContain requires the same type both sides and here
 -- we are predominantly checking if a BS contains some String.
 shouldContain :: BS.ByteString -> BS.ByteString -> Expectation
@@ -117,12 +122,12 @@ spec = do
         MLIR.withStringRef exampleModuleStr $ MLIR.parseModule ctx
       -- Get all operations in first function of module.
       ops <-
-        -- Get operations in module body, then
-        (MLIR.getModuleBody >=> MLIR.getBlockOperations) >=>
-        -- get blocks in first region of first operation (@add fn), then
-        (MLIR.getOperationRegions . head) >=> (MLIR.getRegionBlocks . head) >=>
-        -- get operations in first block.
-        (MLIR.getBlockOperations . head) $ exampleModule
+        -- Get first operation in module body, then
+        MLIR.getModuleBody >=> MLIR.getBlockOperations >=> getFirst >=>
+        -- get all blocks in first region of this operation, then
+        MLIR.getOperationRegions >=> getFirst >=> MLIR.getRegionBlocks >=>
+        -- get all operations in first block.
+        getFirst >=> MLIR.getBlockOperations $ exampleModule
       opStrs <- mapM MLIR.showOperation ops
       (BS.intercalate " ; " opStrs) `shouldBe` "%0 = arith.addi %arg0, %arg0 : i32 ; return %0 : i32"
       MLIR.destroyModule exampleModule
