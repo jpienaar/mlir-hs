@@ -4,7 +4,7 @@
 
 Note that the `main` branch tracks the current HEAD of [LLVM](https://github.com/llvm/llvm-project)
 and so it is likely to be incompatible with any past releases. We are planning to
-provide release-specifi branches in the future, but only once the API stabilizes.
+provide release-specific branches in the future, but only once the API stabilizes.
 For now your best bet is to develop against MLIR built from source. See the
 [Building MLIR from source](#building-mlir-from-source) section for guidance.
 
