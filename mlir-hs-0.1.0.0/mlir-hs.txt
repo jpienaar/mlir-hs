@@ -1060,6 +1060,9 @@ conv_3d_ndhwc_dhwcf :: () => MonadBlockBuilder m => [Type] -> [Value] -> [Value]
 -- | A builder for <tt>linalg.conv_3d</tt>.
 conv_3d :: () => MonadBlockBuilder m => [Type] -> [Value] -> [Value] -> RegionBuilderT m () -> m Value
 
+-- | A builder for <tt>linalg.copy</tt>.
+copy :: () => MonadBlockBuilder m => [Type] -> [Value] -> [Value] -> RegionBuilderT m () -> m Value
+
 -- | A builder for <tt>linalg.depthwise_conv_1d_nwc_wc</tt>.
 depthwise_conv_1d_nwc_wc :: () => MonadBlockBuilder m => [Type] -> [Value] -> [Value] -> RegionBuilderT m () -> m Value
 
@@ -1140,9 +1143,6 @@ quantized_batch_matmul :: () => MonadBlockBuilder m => [Type] -> [Value] -> [Val
 
 -- | A builder for <tt>linalg.quantized_matmul</tt>.
 quantized_matmul :: () => MonadBlockBuilder m => [Type] -> [Value] -> [Value] -> RegionBuilderT m () -> m Value
-
--- | A builder for <tt>linalg.soft_plus_2d</tt>.
-soft_plus_2d :: () => MonadBlockBuilder m => [Type] -> [Value] -> [Value] -> RegionBuilderT m () -> m Value
 
 -- | A builder for <tt>linalg.vecmat</tt>.
 vecmat :: () => MonadBlockBuilder m => [Type] -> [Value] -> [Value] -> RegionBuilderT m () -> m Value
@@ -2130,7 +2130,7 @@ runPasses :: PassManager -> Module -> IO LogicalResult
 inline_c_ffi_6989586621679480734 :: PassManager -> Module -> IO LogicalResult
 addConvertMemRefToLLVMPass :: PassManager -> IO ()
 inline_c_ffi_6989586621679480743 :: PassManager -> IO ()
-addConvertStandardToLLVMPass :: PassManager -> IO ()
+addConvertFuncToLLVMPass :: PassManager -> IO ()
 inline_c_ffi_6989586621679480752 :: PassManager -> IO ()
 addConvertVectorToLLVMPass :: PassManager -> IO ()
 inline_c_ffi_6989586621679480761 :: PassManager -> IO ()
