@@ -12,7 +12,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.platform }}
 
     steps:
     - name: Checkout the repository
@@ -53,6 +56,7 @@ jobs:
         cmake -B llvm-project/build -DLLVM_CCACHE_BUILD=ON \
           -DLLVM_BUILD_LLVM_DYLIB=ON -DMLIR_BUILD_MLIR_C_DYLIB=ON -DCMAKE_BUILD_TYPE=Release \
           -DLLVM_ENABLE_PROJECTS=mlir -DLLVM_TARGETS_TO_BUILD="host" \
+          -DCMAKE_C_VISIBILITY_PRESET=hidden -DCMAKE_CXX_VISIBILITY_PRESET=hidden \
           -DCMAKE_INSTALL_PREFIX=$HOME/mlir_shared llvm-project/llvm
         cmake --build llvm-project/build -t install
         echo "$HOME/mlir_shared/bin" >> $GITHUB_PATH
