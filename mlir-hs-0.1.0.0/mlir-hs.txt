@@ -1548,6 +1548,12 @@ pattern CeilDivUI :: () => () => Location -> Type -> operand -> operand -> Abstr
 -- | A builder for <tt>arith.ceildivui</tt>.
 ceildivui :: () => MonadBlockBuilder m => Value -> Value -> m Value
 
+-- | A pattern for <tt>arith.constant</tt>.
+pattern Constant :: () => () => Location -> Type -> Attribute -> AbstractOperation operand
+
+-- | A builder for <tt>arith.constant</tt>.
+constant :: () => MonadBlockBuilder m => Type -> Attribute -> m Value
+
 -- | A pattern for <tt>arith.divf</tt>.
 pattern DivF :: () => () => Location -> Type -> operand -> operand -> AbstractOperation operand
 
@@ -1762,17 +1768,17 @@ assert :: () => MonadBlockBuilder m => Value -> ByteString -> m ()
 
 module MLIR.Native.Pass
 createPassManager :: Context -> IO PassManager
-inline_c_ffi_6989586621679426415 :: Context -> IO PassManager
+inline_c_ffi_6989586621679427639 :: Context -> IO PassManager
 destroyPassManager :: PassManager -> IO ()
-inline_c_ffi_6989586621679426424 :: PassManager -> IO ()
+inline_c_ffi_6989586621679427648 :: PassManager -> IO ()
 withPassManager :: Context -> (PassManager -> IO a) -> IO a
 runPasses :: PassManager -> Module -> IO LogicalResult
-inline_c_ffi_6989586621679426437 :: PassManager -> Module -> IO LogicalResult
+inline_c_ffi_6989586621679427661 :: PassManager -> Module -> IO LogicalResult
 addConvertMemRefToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679426446 :: PassManager -> IO ()
+inline_c_ffi_6989586621679427670 :: PassManager -> IO ()
 addConvertFuncToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679426455 :: PassManager -> IO ()
+inline_c_ffi_6989586621679427679 :: PassManager -> IO ()
 addConvertVectorToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679426464 :: PassManager -> IO ()
+inline_c_ffi_6989586621679427688 :: PassManager -> IO ()
 addConvertReconcileUnrealizedCastsPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679426473 :: PassManager -> IO ()
+inline_c_ffi_6989586621679427697 :: PassManager -> IO ()
