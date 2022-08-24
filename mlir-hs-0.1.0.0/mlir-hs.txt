@@ -1035,6 +1035,12 @@ pattern ValueAsShape :: () => () => Location -> Type -> operand -> AbstractOpera
 -- | A builder for <tt>shape.value_as_shape</tt>.
 value_as_shape :: () => MonadBlockBuilder m => Type -> Value -> m Value
 
+-- | A pattern for <tt>shape.value_of</tt>.
+pattern ValueOf :: () => () => Location -> Type -> operand -> AbstractOperation operand
+
+-- | A builder for <tt>shape.value_of</tt>.
+value_of :: () => MonadBlockBuilder m => Type -> Value -> m Value
+
 -- | A pattern for <tt>shape.with_shape</tt>.
 pattern With :: () => () => Location -> Type -> operand -> operand -> AbstractOperation operand
 
@@ -1436,10 +1442,10 @@ pattern Shl :: () => () => Location -> Type -> operand -> operand -> AbstractOpe
 shl :: () => MonadBlockBuilder m => Value -> Value -> m Value
 
 -- | A pattern for <tt>llvm.shufflevector</tt>.
-pattern ShuffleVector :: () => () => Location -> Type -> operand -> operand -> [Attribute] -> AbstractOperation operand
+pattern ShuffleVector :: () => () => Location -> Type -> operand -> operand -> [Int] -> AbstractOperation operand
 
 -- | A builder for <tt>llvm.shufflevector</tt>.
-shufflevector :: () => MonadBlockBuilder m => Type -> Value -> Value -> [Attribute] -> m Value
+shufflevector :: () => MonadBlockBuilder m => Type -> Value -> Value -> [Int] -> m Value
 
 -- | A pattern for <tt>llvm.store</tt>.
 pattern Store :: () => () => Location -> operand -> operand -> Maybe Int -> AbstractOperation operand
@@ -1521,6 +1527,12 @@ pattern AddF :: () => () => Location -> Type -> operand -> operand -> AbstractOp
 
 -- | A builder for <tt>arith.addf</tt>.
 addf :: () => MonadBlockBuilder m => Value -> Value -> m Value
+
+-- | A pattern for <tt>arith.addi_carry</tt>.
+pattern AddICarry :: () => () => Location -> Type -> Type -> operand -> operand -> AbstractOperation operand
+
+-- | A builder for <tt>arith.addi_carry</tt>.
+addi_carry :: () => MonadBlockBuilder m => Type -> Type -> Value -> Value -> m [Value]
 
 -- | A pattern for <tt>arith.addi</tt>.
 pattern AddI :: () => () => Location -> Type -> operand -> operand -> AbstractOperation operand
@@ -1772,17 +1784,17 @@ assert :: () => MonadBlockBuilder m => Value -> ByteString -> m ()
 
 module MLIR.Native.Pass
 createPassManager :: Context -> IO PassManager
-inline_c_ffi_6989586621679433916 :: Context -> IO PassManager
+inline_c_ffi_6989586621679435870 :: Context -> IO PassManager
 destroyPassManager :: PassManager -> IO ()
-inline_c_ffi_6989586621679433925 :: PassManager -> IO ()
+inline_c_ffi_6989586621679435879 :: PassManager -> IO ()
 withPassManager :: Context -> (PassManager -> IO a) -> IO a
 runPasses :: PassManager -> Module -> IO LogicalResult
-inline_c_ffi_6989586621679433938 :: PassManager -> Module -> IO LogicalResult
+inline_c_ffi_6989586621679435892 :: PassManager -> Module -> IO LogicalResult
 addConvertMemRefToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679433947 :: PassManager -> IO ()
+inline_c_ffi_6989586621679435901 :: PassManager -> IO ()
 addConvertFuncToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679433956 :: PassManager -> IO ()
+inline_c_ffi_6989586621679435910 :: PassManager -> IO ()
 addConvertVectorToLLVMPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679433965 :: PassManager -> IO ()
+inline_c_ffi_6989586621679435919 :: PassManager -> IO ()
 addConvertReconcileUnrealizedCastsPass :: PassManager -> IO ()
-inline_c_ffi_6989586621679433974 :: PassManager -> IO ()
+inline_c_ffi_6989586621679435928 :: PassManager -> IO ()
